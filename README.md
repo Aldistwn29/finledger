@@ -139,4 +139,3 @@ Open a pull request from the feature branch to `main`. Do not commit `.env.local
 - [Database plan](docs/architecture/Database.md)
 - [Frontend design system](docs/frontend/DesignSystem.md)
 - [AI-assisted development workflow](docs/development/AI-Workflow.md)
-- [AI coding rules](AGENTS.md)
