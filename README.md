@@ -1,22 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FinLedger
+
+FinLedger is an educational full-stack finance recording application for UMKM. Payment features are simulations only; the application does not process real money.
+
+Product requirements are in [`docs/product/prd.md`](docs/product/prd.md). Architecture, database rules, frontend rules, and AI workflow guidance are in [`docs/`](docs/).
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Validation
+
+```bash
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+AI coding rules are defined in [`AGENTS.md`](AGENTS.md). Read it before making changes.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
