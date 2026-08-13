@@ -65,7 +65,7 @@ export default function LoginForm() {
         return;
       }
 
-      router.replace("/");
+      router.replace("/setup/business");
       router.refresh();
     });
   }
