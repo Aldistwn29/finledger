@@ -2,35 +2,30 @@
 
 ## Current Direction
 
-FinLedger is a modular monolith using the Next.js App Router, TypeScript, and Supabase. The application supports two small-business workflows: grocery debt tracking and pulse-business cash/margin tracking.
+FinLedger is a modular monolith using the Next.js App Router and TypeScript. The UI, server-side application logic, and route handlers live in one deployable application.
 
 ## Boundaries
 
-- `app/`: routes, layouts, pages, Server Actions, and route handlers.
+- `app/`: routes, layouts, pages, loading and error boundaries.
 - `components/`: reusable presentation components only.
-- `lib/`: infrastructure clients, auth context, configuration, and shared utilities.
+- `lib/`: infrastructure clients, configuration, and shared utilities.
 - `services/`: business use cases and domain orchestration.
-- `db/`: database queries, generated types, and migration references when introduced.
+- `db/`: database queries, schema types, and migrations when introduced.
 - `tests/`: unit, integration, and end-to-end tests.
 
-Business logic belongs in `services/` or database functions, not JSX. Every Server Action and Route Handler must authenticate, authorize, validate input, and return safe errors.
+Business logic belongs in `services/` or database functions, not in JSX. Server Actions and Route Handlers are security boundaries and must authenticate, authorize, validate input, and return safe errors.
 
-## Financial Model
+## Financial Integrity
 
-The MVP uses sales, debt records, debt payments, and cash transactions. It does not implement a double-entry ledger. PostgreSQL remains authoritative. Cash balance is derived from persisted cash transactions and distinguishes sale payments, debt payments, expenses, capital, and owner withdrawals.
+PostgreSQL is the source of truth. Financial mutations must be atomic and must create balanced ledger postings. Duplicate-sensitive operations require durable database constraints in addition to any cache-based idempotency lookup.
 
 ## Tenant Isolation
 
-All business-owned data carries `business_id`. Server authorization and Supabase RLS must prevent cross-business access. A client-supplied tenant ID is never trusted.
-
-## Infrastructure Scope
-
-Redis, payment gateways, pulse provider integrations, and external notification services are out of MVP scope. Docker is used to learn reproducible packaging and local production execution. GitHub Actions is used for CI checks and Docker image build validation. Supabase remains an external managed dependency.
+All business-owned data carries `business_id`. Server authorization and Supabase Row Level Security must both prevent cross-business access. A client-supplied tenant ID is never trusted.
 
 ## Change Process
 
-1. Define behavior and acceptance criteria in the PRD.
-2. Implement a vertical slice with server validation and authorization.
-3. Add tests for success, failure, tenant isolation, and financial invariants.
+1. Define the behavior and acceptance criteria in documentation or an issue.
+2. Implement a vertical slice with server-side validation and authorization.
+3. Add tests for success, failure, authorization, tenant isolation, and duplicate requests where relevant.
 4. Run lint, typecheck, tests, and production build.
-5. Verify the Docker image separately without including secrets.

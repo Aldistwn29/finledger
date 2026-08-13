@@ -157,7 +157,7 @@ export default function RegisterForm() {
       {errors.form ? (
         <p
           role="alert"
-          className="rounded-xl bg-danger-bg px-4 py-3 text-sm text-danger-foreground"
+          className="rounded-xl bg-[#FFF0EC] px-4 py-3 text-sm text-[#9F432F]"
         >
           {errors.form}
         </p>
@@ -217,7 +217,7 @@ function Field({
         className="bg-input placeholder:text-muted-foreground focus:border-primary focus:ring-primary/20 mt-2 h-11 w-full rounded-xl border px-4 text-sm transition outline-none focus:ring-2"
       />
       {error ? (
-        <p id={errorId} className="mt-1.5 text-xs text-error">
+        <p id={errorId} className="mt-1.5 text-xs text-[#E74C3C]">
           {error}
         </p>
       ) : null}

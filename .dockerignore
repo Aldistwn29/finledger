@@ -1,9 +1,0 @@
-node_modules
-.next
-.git
-.github
-.env*
-coverage
-*.log
-skills
-.agents
