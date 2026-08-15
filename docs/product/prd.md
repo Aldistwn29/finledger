@@ -68,10 +68,12 @@ Payment statuses:
 For `PULSE`, a sale also records:
 
 - `service_type`, such as phone credit, data package, or electricity token.
-- `destination_phone`.
 - `cost_amount`.
 - `selling_amount`.
 - `margin_amount`, calculated as `selling_amount - cost_amount`.
+
+The initial MVP form does not collect a destination phone, sale date, or note.
+The database keeps the destination phone column nullable for a future workflow.
 
 The server validates and calculates authoritative amounts. Client totals are never trusted.
 

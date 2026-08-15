@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import RegisterForm from "./register-form";
+import RegisterForm from "@/components/auth/register-form";
 
 export const metadata: Metadata = {
   title: "Daftar | FinLedger",

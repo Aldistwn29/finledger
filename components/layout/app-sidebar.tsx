@@ -5,7 +5,6 @@ import {
   BarChart3,
   ChevronDown,
   CircleDollarSign,
-  CreditCard,
   LayoutDashboard,
   LogOut,
   MessageSquareText,
@@ -34,11 +33,6 @@ const primaryItems = [
   { href: "/app/receivables", label: "Piutang", icon: WalletCards },
   { href: "/app/customers", label: "Pelanggan", icon: Users },
   { href: "/app/reports", label: "Laporan", icon: BarChart3 },
-];
-
-const managementItems = [
-  { href: "/app/expenses", label: "Pengeluaran", icon: CreditCard },
-  { href: "/app/capital", label: "Modal", icon: CircleDollarSign },
 ];
 
 function isCurrentPath(pathname: string, href: string) {
@@ -121,7 +115,6 @@ export default function AppSidebar({
 
         <nav className="min-h-0 flex-1 overflow-y-auto px-3 py-4">
           <NavGroup label="Workspace" items={primaryItems} pathname={pathname} onNavigate={onClose} />
-          <NavGroup label="Manage" items={managementItems} pathname={pathname} onNavigate={onClose} className="mt-7" />
 
           <div className="mt-6 border-t pt-4">
             <p className="px-3 text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">Support</p>
@@ -155,6 +148,20 @@ export default function AppSidebar({
             </div>
             <Settings2 className="size-4 shrink-0 text-muted-foreground" />
           </div>
+          <Link
+            href="/app/settings"
+            onClick={onClose}
+            aria-current={isCurrentPath(pathname, "/app/settings") ? "page" : undefined}
+            className={cn(
+              "mb-2 flex h-10 items-center justify-center gap-2 rounded-full border text-xs font-bold transition",
+              isCurrentPath(pathname, "/app/settings")
+                ? "border-primary bg-primary-bg text-primary-dark"
+                : "text-muted-foreground hover:border-primary/40 hover:bg-primary-bg hover:text-primary-dark",
+            )}
+          >
+            <Settings2 className="size-4" />
+            Pengaturan
+          </Link>
           <div className="flex items-center gap-2">
             <button
               type="button"

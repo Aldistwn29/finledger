@@ -18,10 +18,10 @@ import {
   PageHeader,
   StatusBadge,
 } from "@/components/dashboard/dashboard-bits";
-import PulseDashboardChart from "@/components/dashboard/pulse-dashboard-chart";
+import PulseDashboardChart from "@/components/pulse/dashboard/dashboard-chart";
 import ThemeToggle from "@/components/theme/theme-toggle";
 import { requireUser } from "@/lib/auth/get-current-context";
-import { getPulseDashboard } from "@/services/reports/get-pulse-dashboard";
+import { getPulseDashboard } from "@/services/pulse/reports/get-dashboard";
 
 function formatDate(value: string | null) {
   if (!value) return "Belum ditentukan";
@@ -127,8 +127,8 @@ export default async function PulseDashboardPage() {
           <CardContent className="space-y-2">
             {dashboard.recentSales.length === 0 ? (
               <EmptyState title="Belum ada transaksi" description="Mulai dengan mencatat penjualan pulsa." />
-            ) : dashboard.recentSales.map((sale) => (
-              <Link key={sale.id} href={`/app/sales/${sale.id}`} className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-background p-3 transition hover:border-primary/50 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+              ) : dashboard.recentSales.map((sale) => (
+              <article key={sale.id} className="flex min-w-0 flex-col gap-3 rounded-2xl border border-border bg-background p-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                 <div className="min-w-0">
                   <p className="truncate text-sm font-bold">{sale.description}</p>
                   <p className="mt-1 truncate text-xs text-muted-foreground">{sale.customerName} · {formatDateTime(sale.soldAt)}</p>
@@ -137,7 +137,7 @@ export default async function PulseDashboardPage() {
                   <Money value={sale.total} className="text-sm font-extrabold" />
                   <div className="mt-1"><StatusBadge status={sale.paymentStatus} /></div>
                 </div>
-              </Link>
+              </article>
             ))}
           </CardContent>
         </Card>
