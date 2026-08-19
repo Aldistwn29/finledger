@@ -191,13 +191,13 @@ docker run --rm -p 3000:3000 --env-file .env.local finledger:local
 
 Never bake secrets into the image. Delivery guidance is documented in [`docs/development/Docker-CI-CD.md`](docs/development/Docker-CI-CD.md).
 
-The GitHub Actions CI workflow validates every pull request and push to `main`:
+The GitHub Actions workflow validates every pull request and push to `main`:
 
 ```text
 npm ci -> lint -> typecheck -> test -> build -> docker build
 ```
 
-CD remains optional until a deployment target is selected.
+Pull requests only build the image. Pushes to `main` publish it to `<DOCKERHUB_USERNAME>/finledger` after validation succeeds. Configure the `DOCKERHUB_USERNAME` repository variable and `DOCKERHUB_TOKEN` repository secret in GitHub. Application deployment remains optional until a target is selected.
 
 ## Architecture and Security Principles
 

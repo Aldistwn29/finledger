@@ -1,6 +1,6 @@
 # Docker and CI/CD Learning Guide
 
-This project uses Docker and GitHub Actions as a learning path for reproducible delivery. The first target is CI. CD remains optional until a deployment provider is selected.
+This project uses Docker and GitHub Actions as a learning path for reproducible delivery. CI validates the application and publishes a Docker image from `main`. Application deployment remains optional until a provider is selected.
 
 ## Docker Scope
 
@@ -35,7 +35,7 @@ Do not commit the environment file. Do not bake environment values into the Dock
 
 ## CI Pipeline
 
-GitHub Actions should run on pull requests and pushes to `main`. The baseline pipeline is:
+GitHub Actions runs on pull requests and pushes to `main`. The baseline pipeline is:
 
 ```text
 checkout
@@ -48,11 +48,18 @@ checkout
 → docker build
 ```
 
-The Docker build only verifies that the image can be produced. It does not require production secrets.
+Pull requests build the Docker image without logging in or pushing it. Pushes to `main` publish the validated image to `<DOCKERHUB_USERNAME>/finledger` with branch, commit SHA, and `latest` tags.
+
+Configure these values in the GitHub repository settings:
+
+- Repository variable `DOCKERHUB_USERNAME` containing the Docker Hub username.
+- Repository secret `DOCKERHUB_TOKEN` containing a Docker Hub access token with permission to push the `finledger` repository.
+
+The image build uses safe placeholder Supabase values and does not require production secrets. The published image is a CI artifact and is not a production deployment target until production public configuration and a deployment provider are selected.
 
 ## CD Roadmap
 
-CD will be added after selecting a deployment target such as Railway, Render, or another container platform. The deployment process must:
+Application deployment will be added after selecting a target such as Railway, Render, or another container platform. The deployment process must:
 
 - Store environment variables in the provider secret manager.
 - Build from a reviewed commit or CI artifact.
