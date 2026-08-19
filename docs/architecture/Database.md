@@ -26,7 +26,7 @@ The only platform roles are `ADMIN` and `USER`. Each `USER` has one business in 
 
 `customers` contains customer details and `business_id`.
 
-`sales` contains sale status, customer reference, description, total amount, date, and business reference. Pulse-specific fields include service type, destination phone, cost amount, selling amount, and margin amount.
+`sales` contains sale status, customer reference, description, total amount, date, and business reference. Pulse-specific fields include service type, optional destination phone, cost amount, selling amount, and margin amount. The initial MVP form does not collect the destination phone.
 
 `debt_records` references a customer and source sale, and contains total, paid, outstanding, due date, and status.
 

@@ -48,7 +48,7 @@ const navItems = [
 export default function Home() {
   return (
     <main className="min-h-screen lg:flex">
-      <aside className="flex w-full flex-col bg-primary-dark px-5 py-5 text-white lg:min-h-screen lg:w-[252px] lg:px-6">
+      <aside className="flex w-full flex-col bg-primary-dark px-5 py-5 text-primary-foreground lg:min-h-screen lg:w-[252px] lg:px-6">
         <div className="flex items-center justify-between lg:block">
           <div className="flex items-center gap-3">
             <div className="grid size-10 place-items-center rounded-2xl bg-accent text-surface-dark">
@@ -56,13 +56,13 @@ export default function Home() {
             </div>
             <div>
               <p className="text-lg font-extrabold tracking-tight">FinLedger</p>
-              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/65">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-foreground/65">
                 Keuangan UMKM
               </p>
             </div>
           </div>
           <button
-            className="rounded-full p-2 hover:bg-white/10 lg:hidden"
+            className="rounded-full p-2 hover:bg-primary-foreground/10 lg:hidden"
             aria-label="Buka menu"
           >
             <Search size={20} />
@@ -76,8 +76,8 @@ export default function Home() {
               href="#"
               className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition ${
                 active
-                  ? "bg-white text-primary-dark shadow-lg shadow-[0_10px_24px_-12px_var(--surface-dark)]"
-                  : "text-white/75 hover:bg-white/10 hover:text-white"
+                   ? "bg-card text-primary-dark shadow-lg shadow-[0_10px_24px_-12px_var(--surface-dark)]"
+                   : "text-primary-foreground/75 hover:bg-primary-foreground/10 hover:text-primary-foreground"
               }`}
             >
               <Icon size={18} />
@@ -91,19 +91,19 @@ export default function Home() {
           <p className="mt-2 text-sm font-semibold leading-5">
             Pisahkan uang usaha dan pribadi agar arus kas lebih jelas.
           </p>
-          <button className="mt-4 flex items-center gap-1 text-xs font-bold text-white/75">
+             <button className="mt-4 flex items-center gap-1 text-xs font-bold text-surface-dark-foreground/75">
             Pelajari lebih lanjut <ArrowUpRight size={13} />
           </button>
         </div>
 
-        <div className="mt-5 hidden items-center justify-between border-t border-white/15 pt-5 lg:flex">
+        <div className="mt-5 hidden items-center justify-between border-t border-primary-foreground/15 pt-5 lg:flex">
           <div className="flex items-center gap-2">
             <div className="grid size-8 place-items-center rounded-full bg-primary-light text-xs font-extrabold">
               AS
             </div>
             <span className="text-xs font-bold">Aldi Setiawan</span>
           </div>
-          <Settings size={17} className="text-white/65" />
+           <Settings size={17} className="text-primary-foreground/65" />
         </div>
       </aside>
 
@@ -122,7 +122,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-3">
             <button
-              className="relative hidden rounded-full border bg-white p-3 text-primary-dark shadow-sm sm:block"
+               className="relative hidden rounded-full border bg-card p-3 text-primary-dark shadow-sm sm:block"
               aria-label="Notifikasi"
             >
               <Bell size={19} />
@@ -135,15 +135,15 @@ export default function Home() {
         </header>
 
         <div className="mt-7 grid gap-4 md:grid-cols-3">
-          <Card className="border-0 bg-primary text-white">
+           <Card className="border-0 bg-primary text-primary-foreground">
             <CardHeader className="pb-2">
-              <p className="text-sm font-semibold text-white/75">
+               <p className="text-sm font-semibold text-primary-foreground/75">
                 Saldo usaha saat ini
               </p>
             </CardHeader>
             <CardContent>
               <p className="money text-3xl font-extrabold">Rp 12.840.500</p>
-              <p className="mt-3 flex items-center gap-1 text-xs font-bold text-white/80">
+               <p className="mt-3 flex items-center gap-1 text-xs font-bold text-primary-foreground/80">
                 <ArrowUpRight size={14} /> 12,5% dari bulan lalu
               </p>
             </CardContent>
@@ -244,7 +244,7 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <Button variant="outline" size="sm" className="mt-4 border-danger-foreground bg-white text-danger-foreground">
+                 <Button variant="outline" size="sm" className="mt-4 border-danger-foreground bg-card text-danger-foreground">
                   Lihat piutang
                 </Button>
               </div>
@@ -254,7 +254,7 @@ export default function Home() {
                   <p className="text-xs font-semibold text-muted-foreground">Target penjualan</p>
                   <p className="money mt-1 text-lg font-extrabold">68% tercapai</p>
                 </div>
-                <div className="h-2 w-24 overflow-hidden rounded-full bg-white">
+                 <div className="h-2 w-24 overflow-hidden rounded-full bg-card">
                   <div className="h-full w-[68%] rounded-full bg-primary" />
                 </div>
               </div>
@@ -262,10 +262,10 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="mt-6 flex items-center justify-between rounded-3xl bg-surface-dark px-5 py-4 text-white shadow-[0_12px_30px_-18px_var(--surface-dark)] sm:px-6">
+         <div className="mt-6 flex items-center justify-between rounded-3xl bg-surface-dark px-5 py-4 text-surface-dark-foreground shadow-[0_12px_30px_-18px_var(--surface-dark)] sm:px-6">
           <div>
             <p className="text-sm font-extrabold">Siap mencatat transaksi baru?</p>
-            <p className="mt-1 text-xs text-white/60">
+             <p className="mt-1 text-xs text-surface-dark-foreground/60">
               Catat sekarang, biar laporan besok lebih mudah.
             </p>
           </div>

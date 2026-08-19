@@ -22,11 +22,24 @@ Record activity -> monitor debt and cash -> review reports -> evaluate the next 
 
 ## Project Status
 
-The project is in the MVP foundation phase. The current foundation includes Supabase authentication, business onboarding, tenant context, a pulse dashboard read model, responsive application shell, reusable sidebar navigation, and light/dark theme support.
+FinLedger is in active MVP development. The current working vertical slice is focused on `PULSE` businesses and includes:
 
-Customers, sales entry, debt payments, cash-movement writes, reports, and platform administration are still being implemented according to the development phases below.
+- Supabase authentication, secure sessions, and business onboarding.
+- Business-scoped authorization and Supabase RLS boundaries.
+- Customer creation, editing, searching, filtering, detail views, and deactivation.
+- Pulse sales with `PAID`, `CREDIT`, and `PARTIAL` payment statuses.
+- Server-side validation and calculation of selling amount, paid amount, outstanding debt, and margin.
+- Atomic sale, debt, and sale-payment writes through PostgreSQL functions.
+- Receivable tracking and partial or full debt payments with overpayment rejection.
+- Pulse dashboard with sales, cash, margin, capital, expense, and receivable indicators.
+- Weekly and monthly pulse sales reports.
+- Business and profile settings, feedback submission, responsive layout, and light/dark themes.
 
-## MVP Scope
+The MVP is not complete yet. Grocery-specific operational flows, dedicated expense and capital entry screens, platform administration, CSV export, and the destination-phone input are not currently available. The application is an evaluation aid, not accounting software or professional financial advice.
+
+## MVP Scope and Progress
+
+The following is the target MVP scope. The implementation status is described in the sections below.
 
 ### Authentication and Business
 
@@ -39,13 +52,12 @@ Customers, sales entry, debt payments, cash-movement writes, reports, and platfo
 
 ### Business Operations
 
-- Customer management.
-- Sales with `PAID`, `CREDIT`, or `PARTIAL` payment status.
-- Customer debt and partial or full debt payments.
-- Expenses, capital contributions, and owner withdrawals.
-- Dashboard for cash, sales, debt, payments, and expenses.
-- Weekly and monthly evaluation reports.
-- Pulse cost, selling amount, and margin tracking.
+- Customer management is available for the current business workspace.
+- Pulse sales with `PAID`, `CREDIT`, or `PARTIAL` payment status are available.
+- Customer debt and partial or full debt payments are available for pulse sales.
+- Expenses, capital contributions, and owner withdrawals remain part of the target scope; their dedicated entry screens are not implemented yet.
+- The dashboard and reports are currently implemented for `PULSE` businesses.
+- Pulse cost, selling amount, and margin tracking are available.
 
 For `PULSE`, a sale can include service type, destination phone, cost amount, selling amount, and calculated margin. The server is authoritative for totals, balances, tenant ownership, and financial calculations.
 
@@ -91,6 +103,25 @@ tests/        Unit, integration, and end-to-end tests
 docs/         Product, architecture, design, database, and delivery docs
 ```
 
+## Available Routes
+
+Authenticated users can currently access these application areas:
+
+```text
+/login                  Sign in
+/register               Create an account
+/setup/business         Create the business workspace
+/app/dashboard          Pulse business overview
+/app/customers          Customer management
+/app/sales               Pulse sales list and entry
+/app/receivables        Active receivables and debt payments
+/app/reports             Weekly and monthly pulse reports
+/app/settings            Profile and business settings
+/app/feedback            Submit product feedback
+```
+
+`/app/sales`, `/app/receivables`, `/app/reports`, and the current dashboard read model show a coming-soon or unavailable state for non-`PULSE` businesses.
+
 ## Supabase Configuration
 
 Create `.env.local` in the project root. Never commit this file or expose service-role credentials to browser code.
@@ -101,6 +132,16 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
 The manual MVP schema is documented in [`docs/database/mvp-schema.sql`](docs/database/mvp-schema.sql). Review existing objects before running destructive cleanup or schema changes in Supabase.
+
+For a fresh Supabase project, apply the base schema first, then apply the migration files in `supabase/migrations/` in filename order:
+
+```text
+20260815000000_create_pulse_sale.sql
+20260815000001_add_feedback_and_settings.sql
+20260815000002_add_customer_management.sql
+```
+
+The migration functions derive `business_id` from the authenticated user's membership. Do not pass a client-controlled business ID for authorization.
 
 ## Getting Started
 
@@ -135,7 +176,7 @@ npm test
 npm run build
 ```
 
-The current test suite is still small. Business rules and cross-tenant authorization tests must be expanded as customers, sales, debt, cash, and admin flows are implemented.
+The current automated test suite includes customer validation. Business-rule and cross-tenant authorization coverage must continue to expand as grocery flows, expenses, capital, owner withdrawals, and platform administration are implemented.
 
 ## Docker and CI/CD
 
@@ -150,13 +191,13 @@ docker run --rm -p 3000:3000 --env-file .env.local finledger:local
 
 Never bake secrets into the image. Delivery guidance is documented in [`docs/development/Docker-CI-CD.md`](docs/development/Docker-CI-CD.md).
 
-The GitHub Actions CI workflow validates:
+The GitHub Actions workflow validates every pull request and push to `main`:
 
 ```text
 npm ci -> lint -> typecheck -> test -> build -> docker build
 ```
 
-CD remains optional until a deployment target is selected.
+Pull requests only build the image. Pushes to `main` publish it to `<DOCKERHUB_USERNAME>/finledger` after validation succeeds. Configure the `DOCKERHUB_USERNAME` repository variable and `DOCKERHUB_TOKEN` repository secret in GitHub. Application deployment remains optional until a target is selected.
 
 ## Architecture and Security Principles
 

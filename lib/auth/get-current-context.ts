@@ -1,7 +1,9 @@
 import { redirect } from "next/navigation";
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
+import { APP_ROLES, normalizeAppRole } from "./roles";
 
-export async function getCurrentContext() {
+export const getCurrentContext = cache(async () => {
   const supabase = await createClient();
 
   const {
@@ -20,6 +22,12 @@ export async function getCurrentContext() {
 
   if (profileError || !profile) {
     throw new Error("Profile tidak ditemukan");
+  }
+
+  const normalizeRole = normalizeAppRole(profile.role);
+
+  if (!normalizeRole) {
+    throw new Error("Role profile tidak valid");
   }
 
   const { data: membership } = await supabase
@@ -42,10 +50,13 @@ export async function getCurrentContext() {
 
   return {
     user,
-    profile,
+    profile: {
+      ...profile,
+      role: normalizeRole,
+    },
     business,
   };
-}
+});
 
 export async function requireUser() {
   const context = await getCurrentContext();
@@ -54,7 +65,7 @@ export async function requireUser() {
     redirect("/login");
   }
 
-  if (context.profile.role !== "User") {
+  if (context.profile.role !== APP_ROLES.USER) {
     redirect("/admin/dashboard");
   }
 
@@ -68,7 +79,7 @@ export async function requireAdmin() {
     redirect("/login");
   }
 
-  if (context.profile.role !== "Admin") {
+  if (context.profile.role !== APP_ROLES.ADMIN) {
     redirect("/app/dashboard");
   }
 

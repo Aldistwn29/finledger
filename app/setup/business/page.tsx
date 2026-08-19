@@ -1,43 +1,28 @@
-import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import BusinessForm from "./business-form";
+import BusinessForm from "@/components/business/business-form";
+import { getCurrentContext } from "@/lib/auth/get-current-context";
+import { APP_ROLES } from "@/lib/auth/roles";
+import { createBusiness } from "./actions";
 
 export const metadata: Metadata = {
   title: "Setup Bisnis | Finledger",
 };
 
 export default async function SetupBusinessPage() {
-  const supabase = await createClient();
+  const context = await getCurrentContext();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
+  if (!context) {
     redirect("/login");
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
-
-  if (profile?.role === "Admin") {
+  if (context.profile.role === APP_ROLES.ADMIN) {
     redirect("/admin/dashboard");
   }
 
-  const { data: membership } = await supabase
-    .from("business_members")
-    .select("business_id")
-    .eq("user_id", user.id)
-    .maybeSingle();
-
-  if (membership) {
+  if (context.business) {
     redirect("/app/dashboard");
   }
-
   return (
     <main className="flex min-h-screen justify-center px-4 py-10">
       <section className="bg-card w-full max-w-lg rounded-3xl border p-6 shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--primary)_22%,transparent)] sm:p-8">
@@ -45,7 +30,7 @@ export default async function SetupBusinessPage() {
         <p className="text-muted-foreground mt-2 text-sm">
           Lengkapi data bisnis Anda untuk mulai menggunakan FinLedger.
         </p>
-        <BusinessForm />
+        <BusinessForm action={createBusiness} />
       </section>
     </main>
   );

@@ -25,11 +25,25 @@ FinLedger uses a playful-fintech direction: friendly rounded surfaces and tactil
 | Danger Background | `#FFF0EC` | error and attention surfaces |
 | Danger Foreground | `#9F432F` | readable text on danger surfaces |
 
+### Dark Mode
+
+Dark mode uses near-black surfaces with green brand accents while preserving coral and warning colors for financial status meaning.
+
+| Token | Value | Use |
+| --- | --- | --- |
+| Dark Background | `#050807` | application background |
+| Dark Card | `#0B1410` | cards and elevated surfaces |
+| Dark Primary | `#32C978` | primary actions and positive emphasis |
+| Dark Primary Background | `#0D2B1B` | selected and positive surfaces |
+| Dark Accent | `#B8F36B` | important action in dark mode |
+| Dark Border | `#1B3A29` | borders and dividers |
+| Dark Input | `#0E1E15` | form inputs |
+
 ## Components
 
-- Cards use generous rounded corners, white surfaces, thin borders, and subtle teal shadow.
+- Cards use generous rounded corners, theme-aware surfaces, thin borders, and subtle teal shadow.
 - Primary buttons are pill-shaped and tactile. Gold is reserved for the most important action; teal is used for standard actions.
-- Inputs use the cream surface with a clear teal focus ring.
+- Inputs use the cream surface in light mode and dark green surfaces in dark mode, both with a clear teal-green focus ring.
 - Financial metrics are bold, use tabular numerals, and are never obscured by decoration.
 - Colored glow is subtle and supports hierarchy; avoid large gradients and neon effects.
 - Status colors must not be the sole way to communicate meaning. Pair them with text or icons.

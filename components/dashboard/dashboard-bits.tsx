@@ -57,7 +57,7 @@ export function MetricCard({
     <div className={cn("min-w-0 rounded-3xl border p-4 shadow-[0_8px_24px_-12px_color-mix(in_srgb,var(--primary)_22%,transparent)] sm:p-5", toneClass)}>
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-semibold opacity-80">{label}</p>
-        <span aria-hidden className="grid size-8 place-items-center rounded-xl bg-white/70">
+          <span aria-hidden className="grid size-8 place-items-center rounded-xl bg-card/70">
           {icon}
         </span>
       </div>
