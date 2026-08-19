@@ -1,7 +1,5 @@
 # FinLedger - Small Business Financial Tracker
 
-_Disclaimer: Some parts of this README were intentionally generated with ChatGPT and reviewed against the project implementation._
-
 ## Overview
 
 FinLedger is a full-stack financial tracking application for small businesses. It helps business owners record sales, manage customer debt, monitor cash flow, and review business performance from a single workspace.
