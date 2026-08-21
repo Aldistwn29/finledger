@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import BusinessForm from "@/components/business/business-form";
 import { getCurrentContext } from "@/lib/auth/get-current-context";
-import { APP_ROLES } from "@/lib/auth/roles";
+import { getAuthenticatedHomePath } from "@/lib/auth/roles";
 import { createBusiness } from "./actions";
 
 export const metadata: Metadata = {
-  title: "Setup Bisnis | Finledger",
+  title: "Setup Bisnis | FinLedger",
 };
 
 export default async function SetupBusinessPage() {
@@ -16,12 +16,13 @@ export default async function SetupBusinessPage() {
     redirect("/login");
   }
 
-  if (context.profile.role === APP_ROLES.ADMIN) {
-    redirect("/admin/dashboard");
-  }
+  const destination = getAuthenticatedHomePath(
+    context.profile.role,
+    Boolean(context.business),
+  );
 
-  if (context.business) {
-    redirect("/app/dashboard");
+  if (destination !== "/setup/business") {
+    redirect(destination);
   }
   return (
     <main className="flex min-h-screen justify-center px-4 py-10">

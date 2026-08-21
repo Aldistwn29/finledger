@@ -30,20 +30,28 @@ export const getCurrentContext = cache(async () => {
     throw new Error("Role profile tidak valid");
   }
 
-  const { data: membership } = await supabase
+  const { data: membership, error: membershipError } = await supabase
     .from("business_members")
     .select("business_id")
     .eq("user_id", user.id)
     .maybeSingle();
 
+  if (membershipError) {
+    throw new Error("Keanggotaan bisnis tidak dapat dimuat");
+  }
+
   let business = null;
 
   if (membership) {
-    const { data } = await supabase
+    const { data, error: businessError } = await supabase
       .from("businesses")
       .select("id, name, business_type, phone, address")
       .eq("id", membership.business_id)
       .single();
+
+    if (businessError) {
+      throw new Error("Data bisnis tidak dapat dimuat");
+    }
 
     business = data;
   }
@@ -84,4 +92,15 @@ export async function requireAdmin() {
   }
 
   return context;
+}
+
+export async function redirectAuthenticatedUser() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect("/setup/business");
+  }
 }

@@ -30,13 +30,14 @@
 }
 
 :root {
+  color-scheme: light;
   --radius: 0.9rem;
   --background: #eff8f7;
   --foreground: #173b3a;
   --card: #ffffff;
   --card-foreground: #173b3a;
   --primary: #2ba8a2;
-  --primary-foreground: #ffffff;
+  --primary-foreground: #052a28;
   --primary-light: #3cc4bd;
   --primary-dark: #1e8c86;
   --primary-bg: #e8f6f5;
@@ -46,19 +47,20 @@
   --success: #27ae60;
   --error: #e74c3c;
   --warning-bg: #fff8e7;
-  --warning-foreground: #8c762f;
+  --warning-foreground: #6d5b20;
   --danger-bg: #fff0ec;
   --danger-foreground: #9f432f;
   --surface-dark: #173b3a;
   --surface-dark-foreground: #eff8f7;
-  --muted: #6d8988;
-  --muted-foreground: #6d8988;
+  --muted: #537371;
+  --muted-foreground: #537371;
   --border: #d7ebe9;
   --input: #fff8e7;
-  --ring: #2ba8a2;
+  --ring: #1e8c86;
 }
 
 .dark {
+  color-scheme: dark;
   --background: #050807;
   --foreground: #e7f7ef;
   --card: #0b1410;

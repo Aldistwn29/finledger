@@ -21,7 +21,7 @@ FinLedger uses a playful-fintech direction: friendly rounded surfaces and tactil
 | Surface Dark | `#173B3A` | dark action banners and deep surfaces |
 | Success | `#27AE60` | successful financial state |
 | Error | `#E74C3C` | failed or destructive state |
-| Warning Foreground | `#8C762F` | readable text on cream warning surfaces |
+| Warning Foreground | `#6D5B20` | readable text on cream warning surfaces |
 | Danger Background | `#FFF0EC` | error and attention surfaces |
 | Danger Foreground | `#9F432F` | readable text on danger surfaces |
 

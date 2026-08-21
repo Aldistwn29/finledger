@@ -6,7 +6,7 @@ export const APP_ROLES = {
 export type AppRole = (typeof APP_ROLES)[keyof typeof APP_ROLES];
 
 export function normalizeAppRole(value: unknown): AppRole | undefined {
-  if (value === "ADMIN" || value === "USER") {
+  if (value === "ADMIN" || value === "Admin") {
     return APP_ROLES.ADMIN;
   }
 
@@ -15,4 +15,12 @@ export function normalizeAppRole(value: unknown): AppRole | undefined {
   }
 
   return undefined;
+}
+
+export function getAuthenticatedHomePath(role: AppRole, hasBusiness: boolean) {
+  if (role === APP_ROLES.ADMIN) {
+    return "/admin/dashboard";
+  }
+
+  return hasBusiness ? "/app/dashboard" : "/setup/business";
 }

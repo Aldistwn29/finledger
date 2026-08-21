@@ -110,7 +110,7 @@ export default function RegisterForm() {
         return;
       }
 
-      router.replace("/");
+      router.replace("/setup/business");
       router.refresh();
     });
   }
