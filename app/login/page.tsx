@@ -8,7 +8,14 @@ export const metadata: Metadata = {
   description: "Masuk ke ruang kerja FinLedger Anda.",
 };
 
-export default async function LoginPage() {
+type LoginPageProps = {
+  searchParams: Promise<{
+    error?: string | string[];
+  }>;
+};
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const params = await searchParams;
   await redirectAuthenticatedUser();
 
   return (
@@ -29,6 +36,16 @@ export default async function LoginPage() {
             Gunakan akun usaha Anda untuk melanjutkan pencatatan.
           </p>
         </div>
+
+        {params.error === "confirmation_failed" ? (
+          <p
+            role="alert"
+            className="bg-danger-bg text-danger-foreground mb-4 rounded-xl px-4 py-3 text-sm"
+          >
+            Konfirmasi email gagal. Tautan mungkin tidak valid atau sudah
+            kadaluarsa.
+          </p>
+        ) : null}
 
         <LoginForm />
 
