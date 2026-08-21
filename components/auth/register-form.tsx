@@ -92,6 +92,7 @@ export default function RegisterForm() {
         password: result.data.password,
         options: {
           data: { name: result.data.name },
+          emailRedirectTo: `${window.location.origin}/auth/callback`,
         },
       });
 
